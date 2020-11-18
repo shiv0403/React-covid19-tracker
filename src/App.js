@@ -12,6 +12,8 @@ import Table from "./components/Table";
 import { sortData } from "./components/util";
 import LineGraph from "./components/LineGraph";
 import Map from "./components/Map";
+import "./components/Map.css";
+import { withScriptjs, withGoogleMap } from "react-google-maps";
 
 function App() {
   const [countries, setcountries] = useState([]);
@@ -66,6 +68,10 @@ function App() {
       });
   };
 
+  const wrappedMap = withScriptjs(
+    withGoogleMap(<Map lati={countryInfo.lat} longi={countryInfo.lng} />)
+  );
+
   return (
     <div className="app">
       <div className="app_left">
@@ -100,7 +106,14 @@ function App() {
             cases={countryInfo.todayDeaths}
           />
         </div>
-        <Map />
+        <div style={{ height: "70vh" }} className="map">
+          <wrappedMap
+            googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyDkUH0dXyWIgdcMVHpti-oo8Nk_xCz0POg`}
+            loadingElement={<div style={{ height: "100%" }} />}
+            containerElement={<div style={{ height: "100%" }} />}
+            mapElement={<div style={{ height: "100%" }} />}
+          />
+        </div>
       </div>
 
       <Card className="app_right">
