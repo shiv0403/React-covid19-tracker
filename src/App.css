@@ -17,6 +17,18 @@ body {
   flex: 0.9;
 }
 
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.stats {
+  display: flex;
+  justify-content: space-between;
+}
+
 @media (max-width: 900px) {
   .app {
     flex-direction: column;
