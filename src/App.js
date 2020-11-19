@@ -13,13 +13,17 @@ import { sortData } from "./components/util";
 import LineGraph from "./components/LineGraph";
 import Map from "./components/Map";
 import "./components/Map.css";
-import { withScriptjs, withGoogleMap } from "react-google-maps";
 
 function App() {
   const [countries, setcountries] = useState([]);
-  const [country, setCountry] = useState("World Wide");
+  const [country, setCountry] = useState("IN");
   const [countryInfo, setCountryInfo] = useState({});
   const [tableData, settableData] = useState([]);
+  const [mapData, setmapData] = useState([]);
+  const [mapCenter, setmapCenter] = useState({
+    lati: 20,
+    longi: 77,
+  });
 
   useEffect(() => {
     fetch("https://disease.sh/v3/covid-19/all")
@@ -43,9 +47,10 @@ function App() {
           });
 
           const sortedData = sortData(data);
-          console.log(sortedData);
+
           setcountries(countries);
           settableData(sortedData);
+          setmapData(data);
         });
     };
 
@@ -65,12 +70,12 @@ function App() {
       .then((res) => res.json())
       .then((data) => {
         setCountryInfo(data);
+        setmapCenter({
+          lati: data.countryInfo.lat,
+          longi: data.countryInfo.long,
+        });
       });
   };
-
-  const wrappedMap = withScriptjs(
-    withGoogleMap(<Map lati={countryInfo.lat} longi={countryInfo.lng} />)
-  );
 
   return (
     <div className="app">
@@ -106,12 +111,12 @@ function App() {
             cases={countryInfo.todayDeaths}
           />
         </div>
-        <div style={{ height: "70vh" }} className="map">
-          <wrappedMap
-            googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyDkUH0dXyWIgdcMVHpti-oo8Nk_xCz0POg`}
-            loadingElement={<div style={{ height: "100%" }} />}
-            containerElement={<div style={{ height: "100%" }} />}
-            mapElement={<div style={{ height: "100%" }} />}
+
+        <div style={{ height: "500px", width: "1100px" }} className="map">
+          <Map
+            lati={mapCenter.lati}
+            longi={mapCenter.longi}
+            countries={mapData}
           />
         </div>
       </div>
