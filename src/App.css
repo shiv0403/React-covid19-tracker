@@ -29,6 +29,10 @@ body {
   justify-content: space-between;
 }
 
+.app_right_h2 {
+  margin-top: 10px;
+}
+
 @media (max-width: 900px) {
   .app {
     flex-direction: column;

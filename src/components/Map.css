@@ -1,4 +1,42 @@
 .map {
   margin-top: 50px;
   padding-bottom: 20px;
+  width: 100%;
+}
+
+.marker-btn {
+  outline: none;
+  border: none;
+}
+
+.marker-btn > img {
+  width: 40px;
+  height: 40px;
+  size: cover;
+}
+
+/* .popup {
+  background-color: #f5f6fa;
+} */
+
+.popup_flag {
+  background-size: cover;
+  height: 50px;
+  width: 55%;
+}
+
+.popup_span {
+  color: #555555;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.popup_country {
+  margin-top: 10px;
+  color: #555555;
+  font-weight: 800;
+}
+
+.popup_info {
+  font-size: 10px;
+  margin-top: 5px;
 }

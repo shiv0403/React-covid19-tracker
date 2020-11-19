@@ -9,14 +9,14 @@ import {
 } from "@material-ui/core";
 import Infobox from "./components/Infobox";
 import Table from "./components/Table";
-import { sortData } from "./components/util";
+import { sortData, prettyStat } from "./components/util";
 import LineGraph from "./components/LineGraph";
 import Map from "./components/Map";
 import "./components/Map.css";
 
 function App() {
   const [countries, setcountries] = useState([]);
-  const [country, setCountry] = useState("IN");
+  const [country, setCountry] = useState("");
   const [countryInfo, setCountryInfo] = useState({});
   const [tableData, settableData] = useState([]);
   const [mapData, setmapData] = useState([]);
@@ -97,18 +97,18 @@ function App() {
         <div className="stats">
           <Infobox
             title="Coronavirus Cases"
-            total={countryInfo.cases}
-            cases={countryInfo.todayCases}
+            total={prettyStat(countryInfo.cases)}
+            cases={prettyStat(countryInfo.todayCases)}
           />
           <Infobox
             title="Reacovered"
-            total={countryInfo.recovered}
-            cases={countryInfo.todayRecovered}
+            total={prettyStat(countryInfo.recovered)}
+            cases={prettyStat(countryInfo.todayRecovered)}
           />
           <Infobox
             title="Deaths"
-            total={countryInfo.deaths}
-            cases={countryInfo.todayDeaths}
+            total={prettyStat(countryInfo.deaths)}
+            cases={prettyStat(countryInfo.todayDeaths)}
           />
         </div>
 
@@ -123,9 +123,9 @@ function App() {
 
       <Card className="app_right">
         <CardContent>
-          <h2>Live corona cases</h2>
+          <h2 className="app_right_h2">Live corona cases</h2>
           <Table countries={tableData} />
-          <h3>Worldwide New Cases</h3>
+          <h2 className="app_right_h2">Worldwide New Cases</h2>
           <LineGraph />
         </CardContent>
       </Card>
